@@ -4,7 +4,10 @@ import { Command } from 'commander/esm.mjs';
 const program = new Command();
 
 program
+    .argument('<filepath1>')
+    .argument('<filepath2>')
     .description('Compares two configuration files and shows a difference.')
-    .version('0.0.1', '-V, --version', 'output the version number');
+    .version('0.0.1', '-V, --version', 'output the version number')
+    .option('-f, --format [type]', 'output format');
 
 program.parse();
