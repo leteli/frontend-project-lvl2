@@ -2,19 +2,19 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "type": "module",
-  "description": "[![Actions Status](https://github.com/leteli/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/leteli/frontend-project-lvl2/actions)",
+  "description": "Gendiff is the CLI program that compares two configuration files and shows a difference",
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
   "main": "src/gendiff-code.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest --bail"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leteli/frontend-project-lvl2.git"
   },
-  "author": "",
+  "author": "Nastia Kartseva",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/leteli/frontend-project-lvl2/issues"
@@ -23,5 +23,14 @@
   "dependencies": {
     "commander": "^8.3.0",
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.3.4",
+    "jest": "^27.4.7",
+    "jest-cli": "^27.4.7",
+    "jest-globals": "^0.1.7"
   }
 }
