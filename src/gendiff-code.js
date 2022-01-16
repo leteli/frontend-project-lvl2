@@ -2,12 +2,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 import _ from 'lodash';
 
-const readFile = (filename) => fs.readFileSync(path.resolve('__fixtures__', filename), 'utf8');
-const parseJson = (filename) => JSON.parse(readFile(filename));
+export const getPath = (filename) => path.resolve('__fixtures__', filename);
 
-const genDiff = (filepath1, filepath2) => {
-  const obj1 = parseJson(filepath1);
-  const obj2 = parseJson(filepath2);
+const readFile = (filepath) => fs.readFileSync(filepath, 'utf8');
+
+export const genDiff = (filepath1, filepath2) => {
+  const obj1 = JSON.parse(readFile(filepath1));
+  const obj2 = JSON.parse(readFile(filepath2));
   const keys = Object.keys(obj1).concat(Object.keys(obj2));
   const sortedKeys = _.sortBy(keys);
   const result = sortedKeys.map((key) => {
@@ -25,4 +26,3 @@ const genDiff = (filepath1, filepath2) => {
   const entries = _.sortedUniq(result);
   return `{\n${entries.join('\n')}\n}`;
 };
-export default genDiff;
