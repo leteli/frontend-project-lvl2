@@ -1,14 +1,15 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import _ from 'lodash';
+import parser from './parsers.js';
 
 export const getPath = (filename) => path.resolve('__fixtures__', filename);
 
-const readFile = (filepath) => fs.readFileSync(filepath, 'utf8');
+export const readFile = (filepath) => fs.readFileSync(filepath, 'utf8');
 
 export const genDiff = (filepath1, filepath2) => {
-  const obj1 = JSON.parse(readFile(filepath1));
-  const obj2 = JSON.parse(readFile(filepath2));
+  const obj1 = parser(readFile(filepath1), filepath1);
+  const obj2 = parser(readFile(filepath2), filepath2);
   const keys = Object.keys(obj1).concat(Object.keys(obj2));
   const sortedKeys = _.sortBy(keys);
   const result = sortedKeys.map((key) => {
