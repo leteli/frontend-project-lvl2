@@ -28,7 +28,7 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
         };
       }
       return {
-        name: key, value: 'nested', children: buildDiffTree(obj1[key], obj2[key]),
+        name: key, type: 'nested', children: buildDiffTree(obj1[key], obj2[key]),
       };
     });
   };
