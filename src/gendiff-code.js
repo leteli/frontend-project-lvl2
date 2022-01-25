@@ -6,8 +6,9 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const parsedObj1 = parser(filepath1);
   const parsedObj2 = parser(filepath2);
   const buildDiffTree = (obj1, obj2) => {
-    const keys = _.union(Object.keys(obj1), Object.keys(obj2)).sort();
-    return keys.flatMap((key) => {
+    const keys = _.union(Object.keys(obj1), Object.keys(obj2));
+    const sortedKeys = _.sortBy(keys);
+    return sortedKeys.flatMap((key) => {
       if (!_.has(obj2, key)) {
         return {
           name: key, type: 'deleted', value: _.cloneDeep(obj1[key]),
