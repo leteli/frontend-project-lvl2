@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const plain = (data) => {
   const iter = (tree, acc) => {
-    const result = tree
+    const plainDiffLines = tree
       .filter((node) => node.type !== 'unchanged')
       .flatMap((node) => {
         const currentKey = `${acc}.${node.name}`;
@@ -15,10 +15,9 @@ const plain = (data) => {
           }
           return val;
         };
-        if (node.value === 'nested') {
-          return (iter(node.children, currentKey));
-        }
         switch (node.type) {
+          case 'nested':
+            return iter(node.children, currentKey);
           case 'deleted':
             return `Property '${currentKey.slice(1)}' was removed`;
           case 'added':
@@ -29,7 +28,7 @@ const plain = (data) => {
             return null;
         }
       });
-    return result.join('\n');
+    return plainDiffLines.join('\n');
   };
   return iter(data, '');
 };
