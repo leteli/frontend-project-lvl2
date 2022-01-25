@@ -2,12 +2,6 @@ import _ from 'lodash';
 
 const stylish = (data, replacer = '  ', spacesCount = 1) => {
   const iter = (tree, depth) => {
-    if (tree === null) {
-      return null;
-    }
-    if (typeof tree !== 'object') {
-      return tree.toString();
-    }
     const indentSize = spacesCount * depth;
     const currentIndent = replacer.repeat(indentSize);
     const bracketIndent = replacer.repeat(indentSize - spacesCount);
@@ -20,6 +14,10 @@ const stylish = (data, replacer = '  ', spacesCount = 1) => {
       }
       return '  ';
     };
+
+    if (typeof tree !== 'object' || tree === null) {
+      return tree;
+    }
     if (_.isObject(tree) && !Array.isArray(tree)) {
       const lines = Object
         .entries(tree)
