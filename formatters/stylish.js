@@ -19,21 +19,21 @@ const stylish = (data, replacer = '  ', spacesCount = 1) => {
       return tree;
     }
     if (_.isObject(tree) && !Array.isArray(tree)) {
-      const lines = Object
+      const formattedEntries = Object
         .entries(tree)
         .map(([key, val]) => `${currentIndent}  ${key}: ${iter(val, depth + 2)}`);
-      return ['{', ...lines, `${bracketIndent}}`].join('\n');
+      return ['{', ...formattedEntries, `${bracketIndent}}`].join('\n');
     }
-    const result = tree.map((node) => {
+    const stylishDiffNodes = tree.map((node) => {
       if (node.type === 'changed') {
         return `${currentIndent}- ${node.name}: ${iter(node.valueBefore, depth + 2)}\n${currentIndent}+ ${node.name}: ${iter(node.valueAfter, depth + 2)}`;
       }
-      if (node.value !== 'nested') {
+      if (node.type !== 'nested') {
         return `${currentIndent}${getTypeSign(node.type)}${node.name}: ${iter(node.value, depth + 2)}`;
       }
       return `${currentIndent}${getTypeSign(node.type)}${node.name}: ${iter(node.children, (depth + 2))}`;
     });
-    return ['{', ...result, `${bracketIndent}}`].join('\n');
+    return ['{', ...stylishDiffNodes, `${bracketIndent}}`].join('\n');
   };
   return iter(data, 1);
 };
