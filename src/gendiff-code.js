@@ -1,16 +1,10 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import _ from 'lodash';
 import parser from './parsers.js';
 import chooseFormatter from '../formatters/index.js';
 
-export const getPath = (filename) => path.resolve('__fixtures__', filename);
-
-export const readFile = (filepath) => fs.readFileSync(filepath, 'utf8');
-
-export const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
-  const parsedObj1 = parser(readFile(filepath1), filepath1);
-  const parsedObj2 = parser(readFile(filepath2), filepath2);
+const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
+  const parsedObj1 = parser(filepath1);
+  const parsedObj2 = parser(filepath2);
   const buildDiffTree = (obj1, obj2) => {
     const keys = _.union(Object.keys(obj1), Object.keys(obj2)).sort();
     return keys.flatMap((key) => {
@@ -40,3 +34,4 @@ export const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const tree = buildDiffTree(parsedObj1, parsedObj2);
   return chooseFormatter(tree, formatName);
 };
+export default genDiff;
