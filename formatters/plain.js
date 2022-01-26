@@ -25,7 +25,7 @@ const plain = (data) => {
           case 'changed':
             return `Property '${currentKey.slice(1)}' was updated. From ${getValue(node.valueBefore)} to ${getValue(node.valueAfter)}`;
           default:
-            return null;
+            throw new Error(`Unknown type!: ${node.type}`);
         }
       });
     return plainDiffLines.join('\n');
